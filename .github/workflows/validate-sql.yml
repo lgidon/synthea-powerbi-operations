@@ -48,6 +48,10 @@ jobs:
           import duckdb
           import glob
 
+          # Ensure export directory exists before executing DuckDB queries
+          os.makedirs('data/parquets', exist_ok=True)
+          os.makedirs('data/raw', exist_ok=True)
+
           con = duckdb.connect(':memory:')
           sql_files = sorted(glob.glob('scripts/*.sql'))
           

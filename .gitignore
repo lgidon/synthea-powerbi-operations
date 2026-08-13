@@ -40,4 +40,17 @@ venv/
 # Optional: Keep or ignore uv.lock based on project type
 # uv.lock
 
-data/
+# Ignore all contents in data/
+data/*
+
+# Un-ignore the directory structure placeholders
+!data/raw/
+!data/raw/.gitkeep
+!data/parquets/
+!data/parquets/.gitkeep
+
+# Ignore data file extensions everywhere
+*.duckdb
+*.db
+*.csv
+*.parquet
