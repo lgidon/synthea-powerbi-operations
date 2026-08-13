@@ -44,7 +44,7 @@ jobs:
       - name: Validate SQL Script Execution against DuckDB
         run: |
           # Dry-run execution to verify SQL scripts are syntactically valid in DuckDB
-          python -c "
+          uv run python -c "
           import duckdb, os
           import glob
 
