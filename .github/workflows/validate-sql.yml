@@ -29,6 +29,11 @@ jobs:
           # Checks SQL formatting and syntax against DuckDB dialect
           sqlfluff lint scripts/*.sql --dialect duckdb || true
 
+      - name: Download Sample Data for Testing
+        run: |
+          # Fetch Synthea raw CSV files into data/raw/ inside the ephemeral runner
+          uv run python scripts/00_download_synthea.py
+
       - name: Validate SQL Script Execution against DuckDB
         run: |
           # Dry-run execution to verify SQL scripts are syntactically valid in DuckDB
