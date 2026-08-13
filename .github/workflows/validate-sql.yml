@@ -45,7 +45,7 @@ jobs:
         run: |
           # Dry-run execution to verify SQL scripts are syntactically valid in DuckDB
           python -c "
-          import duckdb
+          import duckdb, os
           import glob
 
           # Ensure export directory exists before executing DuckDB queries
