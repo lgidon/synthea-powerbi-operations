@@ -49,8 +49,8 @@
         },
         {
           "location": {
-            "x": 605,
-            "y": 473
+            "x": 525,
+            "y": 482
           },
           "nodeIndex": "Dim_Date",
           "nodeLineageTag": "fc43cf74-fb86-4727-8a68-3e34dbda7fac",
@@ -72,6 +72,19 @@
             "width": 234
           },
           "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1204,
+            "y": 325
+          },
+          "nodeIndex": "Time Intelligence",
+          "nodeLineageTag": "d488defb-5843-41ba-8e84-247b5f75443b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

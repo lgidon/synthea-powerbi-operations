@@ -1,0 +1,47 @@
+table 'Time Intelligence'
+	lineageTag: d488defb-5843-41ba-8e84-247b5f75443b
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE ()
+
+		calculationItem YTD =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESYTD('Dim_Date'[DateKey])
+				)
+
+		calculationItem PY =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    SAMEPERIODLASTYEAR('Dim_Date'[DateKey])
+				)
+
+		calculationItem 'YoY $' = ```
+				VAR CurrentVal = SELECTEDMEASURE()
+				VAR PriorVal = 
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR('Dim_Date'[DateKey])
+				    )
+				RETURN
+				    IF(
+				        NOT ISBLANK(CurrentVal) && NOT ISBLANK(PriorVal),
+				        CurrentVal - PriorVal
+				    )
+				```
+
+			formatStringDefinition = "+0.0%;-0.0%;0.0%"
+
+	column 'Time Calculation'
+		dataType: string
+		lineageTag: a29db2f1-2514-4cf5-a93e-dbee498fdcac
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 12a3efba-e4b8-41a5-ac0e-512676a40241
+		sourceColumn: Ordinal
+
