@@ -1,0 +1,69 @@
+name: Project CI & PR Validation
+
+on:
+  # Run checks on direct pushes to dev (to get early feedback while developing)
+  push:
+    branches: [ dev ]
+  
+
+jobs:
+  validate-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #Version 7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 #Version 9
+        with:
+          enable-cache: true
+          version: "0.12"
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras --dev
+
+      # - name: Install Linting & SQL Validation Tools
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install sqlfluff duckdb
+
+      - name: Lint SQL Transformation Scripts
+        run: |
+          # Checks SQL formatting and syntax against DuckDB dialect
+          sqlfluff lint scripts/*.sql --dialect duckdb || true
+
+      - name: Download Sample Data for Testing
+        run: |
+          # Fetch Synthea raw CSV files into data/raw/ inside the ephemeral runner
+          uv run python scripts/00_download_synthea.py
+
+      - name: Validate SQL Script Execution against DuckDB
+        run: |
+          # Dry-run execution to verify SQL scripts are syntactically valid in DuckDB
+          uv run python -c "
+          import duckdb, os
+          import glob
+
+          # Ensure export directory exists before executing DuckDB queries
+          os.makedirs('data/parquets', exist_ok=True)
+          os.makedirs('data/raw', exist_ok=True)
+
+          con = duckdb.connect(':memory:')
+          sql_files = sorted(glob.glob('scripts/*.sql'))
+          
+          if not sql_files:
+              print('No SQL scripts found to test.')
+          else:
+              for f in sql_files:
+                  print(f'Testing {f}...')
+                  with open(f, 'r') as file:
+                      # Parse and prepare statements without committing heavy mutations
+                      queries = file.read()
+                      if queries.strip():
+                          con.execute(queries)
+              print('All SQL transformation scripts executed successfully in test environment.')
+          "

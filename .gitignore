@@ -1,0 +1,56 @@
+# Data & Database Storage
+data/raw/*
+!data/raw/.gitkeep
+*.duckdb
+*.db
+*.csv
+
+# Power BI Local / User-Specific Files
+*.pbix
+pbip/*.pbip.user
+pbip/*/.pbip.user
+pbip/*.Dataset/Model.bim
+pbip/*.Report/definition.pbir.user
+
+# Python Environment & OS
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
+
+# uv environment and packages
+.venv/
+.uv/
+
+# Python build and cache artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.egg-info/
+
+# Environments (if you manually use others)
+.env
+.venv
+env/
+venv/
+
+# Optional: Keep or ignore uv.lock based on project type
+# uv.lock
+
+# Ignore all contents in data/
+data/*
+
+# Un-ignore the directory structure placeholders
+!data/raw/
+!data/raw/.gitkeep
+!data/parquets/
+!data/parquets/.gitkeep
+
+# Ignore data file extensions everywhere
+*.duckdb
+*.db
+*.csv
+*.parquet

@@ -1,0 +1,100 @@
+table Dim_Date
+	lineageTag: fc43cf74-fb86-4727-8a68-3e34dbda7fac
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a8b6e00e-7ec7-48be-a916-91fe0d88c9eb
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		variation Variation
+			isDefault
+			relationship: 8e767602-a41f-465c-b063-49fd26c2a47f
+			defaultHierarchy: LocalDateTable_8fcd1bc4-b7cd-460b-a7e9-6f7f8edb8ebd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 28939515-0707-4864-ac1c-c92a8714e37c
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: b0c454a1-8c62-45b4-b158-c1cce4423ad5
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: 575b3f0c-b325-482c-a5d4-5a86c51ccced
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: f6ba0db2-902b-4e58-8b4c-06252c9b06fb
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterName
+		dataType: string
+		lineageTag: 679a9a44-4ad3-4d4c-a767-33e109a1b6fc
+		summarizeBy: none
+		sourceColumn: QuarterName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: int64
+		formatString: 0
+		lineageTag: fff48960-a0a3-42cd-acdf-3c5be08db03d
+		summarizeBy: sum
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayName
+		dataType: string
+		lineageTag: 21175871-65dc-49ac-b911-9008bd6ffb9c
+		summarizeBy: none
+		sourceColumn: DayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c0fd5212-06c9-487d-90c3-6a6925cabc37
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("C:\Users\lgido\synthea-powerbi-operations\data\parquets\Dim_Date.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

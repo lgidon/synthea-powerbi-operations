@@ -1,0 +1,189 @@
+table Fact_Encounters
+	lineageTag: b9621d11-a3b1-404e-9f59-b955a762d56d
+
+	column EncounterKey
+		dataType: string
+		lineageTag: 29ef452f-faf6-40ab-a953-c19860df8403
+		summarizeBy: none
+		sourceColumn: EncounterKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PatientKey
+		dataType: string
+		lineageTag: 7099415e-d46a-402e-8021-e0f9ebe47d5e
+		summarizeBy: none
+		sourceColumn: PatientKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProviderKey
+		dataType: string
+		lineageTag: 6a66d327-17c5-4e57-bdb5-73d05cfae76b
+		summarizeBy: none
+		sourceColumn: ProviderKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AdmitDateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1d5419d3-a9ee-4146-b4c9-245a511a1124
+		summarizeBy: none
+		sourceColumn: AdmitDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DischargeDateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 68e46d0c-7dcf-40dd-a767-3058d88d8bc5
+		summarizeBy: none
+		sourceColumn: DischargeDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AdmitTimestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5ff830e1-408a-41f3-a631-4e70ee8f9618
+		summarizeBy: none
+		sourceColumn: AdmitTimestamp
+
+		variation Variation
+			isDefault
+			relationship: 916eea15-9bed-4044-92dc-2ef175b15271
+			defaultHierarchy: LocalDateTable_2472a3f7-4afd-4bca-ace3-b948c26073c6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DischargeTimestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d8b2ce2b-3f43-4f70-9077-b732a06a5083
+		summarizeBy: none
+		sourceColumn: DischargeTimestamp
+
+		variation Variation
+			isDefault
+			relationship: d4cf2aff-7a99-4d77-87b1-5c1d217a82c1
+			defaultHierarchy: LocalDateTable_328ebb98-4a3c-43b4-af28-5b5d7451469c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncounterClass
+		dataType: string
+		lineageTag: c778b3e5-576a-4355-8ad5-66be14eead99
+		summarizeBy: none
+		sourceColumn: EncounterClass
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReasonCode
+		dataType: string
+		lineageTag: 3e0b23c9-53bb-4269-add6-542ff91ff936
+		summarizeBy: none
+		sourceColumn: ReasonCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncounterDescription
+		dataType: string
+		lineageTag: ecb34215-a618-48a3-b244-ea0a06dc1e66
+		summarizeBy: none
+		sourceColumn: EncounterDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseCost
+		dataType: double
+		lineageTag: 98fa3678-520b-4387-8501-805aab9c9d74
+		summarizeBy: sum
+		sourceColumn: BaseCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalCost
+		dataType: double
+		lineageTag: 7efc49db-c6ff-4a70-928a-1ebb058f0a9d
+		summarizeBy: sum
+		sourceColumn: TotalCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PayerCoverage
+		dataType: double
+		lineageTag: 98ddce24-d19a-4283-b958-3c923a3b5f0f
+		summarizeBy: sum
+		sourceColumn: PayerCoverage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LengthOfStayHours
+		dataType: double
+		lineageTag: 8a50ab4a-866f-4e25-afc5-c866785fa4d7
+		summarizeBy: sum
+		sourceColumn: LengthOfStayHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LengthOfStayDays
+		dataType: int64
+		formatString: 0
+		lineageTag: ee467d92-7ffa-4408-975d-d0f8b8c5ce81
+		summarizeBy: sum
+		sourceColumn: LengthOfStayDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsEmergency
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7ec762d6-606b-4121-98c3-fd0e7a60c113
+		summarizeBy: none
+		sourceColumn: IsEmergency
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToNextAdmit
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ccd4dd6-ada6-4c9e-81a2-934399d28260
+		summarizeBy: sum
+		sourceColumn: DaysToNextAdmit
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsReadmitted30Days
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e9fa7dfa-687a-4342-9b69-82b1cffc6b47
+		summarizeBy: none
+		sourceColumn: IsReadmitted30Days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Encounters = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("C:\Users\lgido\synthea-powerbi-operations\data\parquets\Fact_Encounters.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

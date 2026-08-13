@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Dim_Patient","Dim_Provider","Fact_Encounters","Dim_Date","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_91dbca5a-2258-473f-a48d-dc856653b368
+ref table Dim_Patient
+ref table LocalDateTable_83466d71-27d0-4085-a385-2809d018bad0
+ref table LocalDateTable_4d398b76-c99c-4aec-9e14-8a10b287fb55
+ref table Dim_Provider
+ref table Fact_Encounters
+ref table LocalDateTable_2472a3f7-4afd-4bca-ace3-b948c26073c6
+ref table LocalDateTable_328ebb98-4a3c-43b4-af28-5b5d7451469c
+ref table Dim_Date
+ref table LocalDateTable_8fcd1bc4-b7cd-460b-a7e9-6f7f8edb8ebd
+ref table _Measures
+
+ref cultureInfo en-US
+
