@@ -18,3 +18,26 @@ __pycache__/
 .venv/
 .DS_Store
 Thumbs.db
+
+# uv environment and packages
+.venv/
+.uv/
+
+# Python build and cache artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.egg-info/
+
+# Environments (if you manually use others)
+.env
+.venv
+env/
+venv/
+
+# Optional: Keep or ignore uv.lock based on project type
+# uv.lock
+
+data/

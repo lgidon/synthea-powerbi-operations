@@ -1,0 +1,42 @@
+relationship 3dbf0c73-a22c-4665-8801-5bba1d15798c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Patient.BirthDate
+	toColumn: LocalDateTable_83466d71-27d0-4085-a385-2809d018bad0.Date
+
+relationship f635ad6e-4f5b-45b1-9687-e10b0aae5a9b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Patient.DeathDate
+	toColumn: LocalDateTable_4d398b76-c99c-4aec-9e14-8a10b287fb55.Date
+
+relationship 916eea15-9bed-4044-92dc-2ef175b15271
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Encounters.AdmitTimestamp
+	toColumn: LocalDateTable_2472a3f7-4afd-4bca-ace3-b948c26073c6.Date
+
+relationship d4cf2aff-7a99-4d77-87b1-5c1d217a82c1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Encounters.DischargeTimestamp
+	toColumn: LocalDateTable_328ebb98-4a3c-43b4-af28-5b5d7451469c.Date
+
+relationship AutoDetected_7c7a0e95-4497-4a0e-b5cb-4a776e46795b
+	fromColumn: Fact_Encounters.PatientKey
+	toColumn: Dim_Patient.PatientKey
+
+relationship AutoDetected_a1473d06-a4f8-4074-81f2-0afef5f22899
+	fromColumn: Fact_Encounters.ProviderKey
+	toColumn: Dim_Provider.ProviderKey
+
+relationship 8e767602-a41f-465c-b063-49fd26c2a47f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Date.DateKey
+	toColumn: LocalDateTable_8fcd1bc4-b7cd-460b-a7e9-6f7f8edb8ebd.Date
+
+relationship 84c4937b-970c-8a97-4a40-f6063d85df66
+	fromColumn: Fact_Encounters.AdmitDateKey
+	toColumn: Dim_Date.DateKey
+
+relationship 69f78cf1-3a8e-dfb4-67f7-863badfb5b96
+	isActive: false
+	fromColumn: Fact_Encounters.DischargeDateKey
+	toColumn: Dim_Date.DateKey
+

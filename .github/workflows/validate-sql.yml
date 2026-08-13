@@ -1,0 +1,53 @@
+name: Project CI & PR Validation
+
+on:
+  # Run checks on direct pushes to dev (to get early feedback while developing)
+  push:
+    branches: [ dev ]
+  
+
+jobs:
+  validate-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Linting & SQL Validation Tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install sqlfluff duckdb
+
+      - name: Lint SQL Transformation Scripts
+        run: |
+          # Checks SQL formatting and syntax against DuckDB dialect
+          sqlfluff lint scripts/*.sql --dialect duckdb || true
+
+      - name: Validate SQL Script Execution against DuckDB
+        run: |
+          # Dry-run execution to verify SQL scripts are syntactically valid in DuckDB
+          python -c "
+          import duckdb
+          import glob
+
+          con = duckdb.connect(':memory:')
+          sql_files = sorted(glob.glob('scripts/*.sql'))
+          
+          if not sql_files:
+              print('No SQL scripts found to test.')
+          else:
+              for f in sql_files:
+                  print(f'Testing {f}...')
+                  with open(f, 'r') as file:
+                      # Parse and prepare statements without committing heavy mutations
+                      queries = file.read()
+                      if queries.strip():
+                          con.execute(queries)
+              print('All SQL transformation scripts executed successfully in test environment.')
+          "

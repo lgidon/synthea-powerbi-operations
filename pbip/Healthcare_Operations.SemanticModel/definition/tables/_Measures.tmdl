@@ -1,0 +1,48 @@
+table _Measures
+	lineageTag: 29e091a8-be90-469a-a442-4aa0ed25f3be
+
+	measure 'Total Encounters' = COUNTROWS('Fact_Encounters')
+		formatString: #,0
+		displayFolder: Volume & LOS
+		lineageTag: 7517ba6d-e39f-49bc-9c0c-de2588dccb36
+
+	measure 'Readmissions 30D Count' =
+			
+			CALCULATE(
+			    COUNTROWS('Fact_Encounters'),
+			    'Fact_Encounters'[IsReadmitted30Days] = TRUE()
+			)
+		formatString: #,0
+		displayFolder: Readmissions
+		lineageTag: 1badf7c1-9a14-4bb8-911d-f963030fb66b
+
+	measure 'Readmission Rate %' =
+			
+			DIVIDE(
+			    [Readmissions 30D Count],
+			    [Total Encounters],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Readmissions
+		lineageTag: 3b07109b-dacc-44ed-8b85-d8ae8a5dfd65
+
+	measure 'Avg Length of Stay (Days)' =
+			
+			AVERAGE('Fact_Encounters'[LengthOfStayDays])
+		formatString: 0.0
+		displayFolder: Volume & LOS
+		lineageTag: 98f822d0-ebd8-4fee-8cc5-2fc1a264c5d8
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

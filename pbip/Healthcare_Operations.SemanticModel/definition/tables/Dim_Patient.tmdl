@@ -1,0 +1,136 @@
+table Dim_Patient
+	lineageTag: 80941777-a23c-4f65-8a57-1e2efb8d6bce
+
+	column PatientKey
+		dataType: string
+		lineageTag: 4bf65b65-95af-4214-9c42-ff89ab9eb2fd
+		summarizeBy: none
+		sourceColumn: PatientKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: fc46ccaa-bee6-4868-8bcb-339094e8fdba
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: 9880c555-7bb8-4047-af42-5815c860ae0b
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: b4b21157-eccf-4b07-af46-3d2b02b3d959
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Race
+		dataType: string
+		lineageTag: 99b66c24-2eb3-4b1d-af96-ee8031546522
+		summarizeBy: none
+		sourceColumn: Race
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ethnicity
+		dataType: string
+		lineageTag: 46c6a101-77ac-4de0-bdd7-5e52afb7cc45
+		summarizeBy: none
+		sourceColumn: Ethnicity
+
+		annotation SummarizationSetBy = Automatic
+
+	column BirthDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b7bd7310-0883-4bed-b9ff-44da44fde5e5
+		summarizeBy: none
+		sourceColumn: BirthDate
+
+		variation Variation
+			isDefault
+			relationship: 3dbf0c73-a22c-4665-8801-5bba1d15798c
+			defaultHierarchy: LocalDateTable_83466d71-27d0-4085-a385-2809d018bad0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DeathDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 82c3f282-5a21-457d-8d38-1e2ae53b5630
+		summarizeBy: none
+		sourceColumn: DeathDate
+
+		variation Variation
+			isDefault
+			relationship: f635ad6e-4f5b-45b1-9687-e10b0aae5a9b
+			defaultHierarchy: LocalDateTable_4d398b76-c99c-4aec-9e14-8a10b287fb55.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: aa73354b-0913-44e0-88fe-57f9a4aa4b89
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgeGroup
+		dataType: string
+		lineageTag: 88deb7b9-01c9-464e-94d1-644564d978e4
+		summarizeBy: none
+		sourceColumn: AgeGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: c014423c-be38-43b6-891b-04c0b451dbf2
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 59bf8dd5-58dd-46d8-a975-74ca93a12d47
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZipCode
+		dataType: string
+		lineageTag: 8a473644-4cca-4ef5-a335-ddd030d7fd49
+		summarizeBy: none
+		sourceColumn: ZipCode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Patient = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("C:\Users\lgido\synthea-powerbi-operations\data\parquets\Dim_Patient.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

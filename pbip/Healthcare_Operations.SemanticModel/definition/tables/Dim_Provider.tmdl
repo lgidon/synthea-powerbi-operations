@@ -1,0 +1,63 @@
+table Dim_Provider
+	lineageTag: 72e4c7e1-8884-4175-bfc6-b374f07e21da
+
+	column ProviderKey
+		dataType: string
+		lineageTag: b3397a40-6068-400a-811f-ad726cee10d5
+		summarizeBy: none
+		sourceColumn: ProviderKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProviderName
+		dataType: string
+		lineageTag: 681cb0f6-7c55-4da2-a522-5824e86f06c4
+		summarizeBy: none
+		sourceColumn: ProviderName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 75736aff-d614-4753-a7e1-829e9adaace5
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Specialty
+		dataType: string
+		lineageTag: 793177ab-fab8-4cf7-aa3e-2c3fb38e7443
+		summarizeBy: none
+		sourceColumn: Specialty
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrganizationName
+		dataType: string
+		lineageTag: 83e9988c-3ff1-4b9c-b948-513fa5fea6d2
+		summarizeBy: none
+		sourceColumn: OrganizationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrganizationCity
+		dataType: string
+		lineageTag: ab79d8f0-a452-47cc-8119-fe9e82ff88b9
+		summarizeBy: none
+		sourceColumn: OrganizationCity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Provider = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("C:\Users\lgido\synthea-powerbi-operations\data\parquets\Dim_Provider.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
