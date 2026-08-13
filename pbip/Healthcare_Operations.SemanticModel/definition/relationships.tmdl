@@ -26,11 +26,6 @@ relationship AutoDetected_a1473d06-a4f8-4074-81f2-0afef5f22899
 	fromColumn: Fact_Encounters.ProviderKey
 	toColumn: Dim_Provider.ProviderKey
 
-relationship 8e767602-a41f-465c-b063-49fd26c2a47f
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Dim_Date.DateKey
-	toColumn: LocalDateTable_8fcd1bc4-b7cd-460b-a7e9-6f7f8edb8ebd.Date
-
 relationship 84c4937b-970c-8a97-4a40-f6063d85df66
 	fromColumn: Fact_Encounters.AdmitDateKey
 	toColumn: Dim_Date.DateKey

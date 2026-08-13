@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "a1e04d098e0000b3b070",
+  "position": {
+    "x": 789.78723404255322,
+    "y": 0,
+    "z": 1001,
+    "height": 167.29483282674772,
+    "width": 201.33738601823708,
+    "tabOrder": 1001
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Time Intelligence"
+                    }
+                  },
+                  "Property": "Time Calculation"
+                }
+              },
+              "queryRef": "Time Intelligence.Time Calculation",
+              "nativeQueryRef": "Time Calculation",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ],
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "23988633c61c9d99b1a3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Time Intelligence"
+              }
+            },
+            "Property": "Time Calculation"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
